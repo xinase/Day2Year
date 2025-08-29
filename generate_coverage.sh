@@ -3,7 +3,8 @@
 # Clean previous coverage data
 find . -name "*.gcda" -delete
 find . -name "*.gcno" -delete
-rm -rf build/coverage_report
+rm -rf coverage_report
+mkdir -p coverage_report
 
 # Rebuild the project
 rm -rf build
@@ -14,26 +15,23 @@ make
 # Run the tests
 ./run_tests
 
-# Generate coverage info
-lcov --capture --directory . \
-     --output-file coverage.info \
-     --rc lcov_branch_coverage=1 \
-     --ignore-errors mismatch \
-     --ignore-errors gcov
+# 生成HTML报告
+echo "=== Generating HTML coverage report ==="
+gcovr --root ../src \
+      --object-directory . \
+      --html \
+      --html-details \
+      -o ../coverage_report/index.html
 
-# Remove unwanted data
-lcov --remove coverage.info \
-     '/usr/*' \
-     '*/googletest/*' \
-     --output-file filtered_coverage.info \
-     --ignore-errors empty
+# 显示各种覆盖率信息
+echo "=== Line Coverage ==="
+gcovr --root ../src --object-directory . 
 
-# Generate HTML report
-genhtml filtered_coverage.info \
-        --output-directory coverage_report \
-        --title "YearConverter Coverage" \
-        --legend \
-        --branch-coverage \
-        --ignore-errors source
+echo "=== Branch Coverage ==="
+gcovr --root ../src --object-directory . --branches
 
-echo "Coverage report generated in build/coverage_report/index.html"
+echo "=== Function Coverage ==="
+gcovr --root ../src --object-directory . --functions
+
+echo "Coverage report generated: coverage_report/index.html"
+echo "Open coverage_report/index.html to see the full report with branch coverage details"
