@@ -27,13 +27,11 @@ TEST(BuggyVersion, InvalidInputThrowsException) {
     ASSERT_THROW(converter.numberToYear(-1), std::invalid_argument);
 }
 
-/*
+
 // 这个测试将会暴露无限循环的bug
 TEST(BuggyVersion, FirstDayAfterLeapYear) {
     YearConverter converter;
     // 等价类：闰年后的第一天
-    // 这个测试会因为无限循环而卡住
     EXPECT_EQ(converter.numberToYear(366), 1981);
 }
 
-*/
