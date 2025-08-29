@@ -20,7 +20,7 @@ int YearConverter::numberToYear(int days) const
     { 
         if (isLeapYear(year)) 
         {
-            if (days > 366) 
+            if (days >= 366) 
             {
                 days -= 366;
                 year++;
