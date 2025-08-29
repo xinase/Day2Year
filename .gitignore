@@ -1,2 +1,3 @@
 /build
 /.vscodecoverage_report/
+.vscode/
