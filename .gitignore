@@ -1,3 +1,9 @@
 /build
 /.vscodecoverage_report/
 .vscode/
+temp.cpp
+.gitignore
+coverage_report/index.css
+coverage_report/index.functions.html
+coverage_report/index.html
+coverage_report/index.YearConverter.cpp.96d43b2eabf1bded12e563eb0c3fd716.html
